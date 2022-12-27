@@ -4,7 +4,7 @@ on:
 env:
     REPO_NAME: ${{ github.event.repository.name }}
     REPO_OWNER: ${{ github.repository_owner }}
-    GIT_SSH_COMMAND: "ssh -i id_rsa2"
+    GIT_SSH_COMMAND: "ssh -i /root/.ssh/id_rsa2"
 jobs:
   clone:
     name: Clone Repo to server
@@ -18,7 +18,7 @@ jobs:
         password: ${{ secrets.ROOT_PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          export GIT_SSH_COMMAND='ssh -i id_rsa2'
+          export GIT_SSH_COMMAND='ssh -i /root/.ssh/id_rsa2'
           cd /root/
           git clone git@github.com:${{env.REPO_OWNER}}/${{ env.REPO_NAME }}.git
           pwd
