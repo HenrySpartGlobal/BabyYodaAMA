@@ -39,25 +39,25 @@ jobs:
           sudo apt-get install git -y
           sudo apt-get install python3-pip -y
           pip install -r requirements.txt
-  add-bot-token:
-    needs: clone
-    runs-on: ubuntu-latest
-    steps:
-    - name: adding bot token for ${{ env.REPO_NAME }} bot
-      uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.ROOT_USERNAME }}
-        password: ${{ secrets.ROOT_PASSWORD }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd ${{ env.REPO_NAME }}
-          touch config.json
-          echo ${{ secrets.BOT_TOKEN_TEST }} > config.json
-          cat config.json
-          echo $?
+#  add-bot-token:
+#    needs: clone
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: adding bot token for ${{ env.REPO_NAME }} bot
+#      uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
+#      with:
+#        host: ${{ secrets.HOST }}
+#        username: ${{ secrets.ROOT_USERNAME }}
+#        password: ${{ secrets.ROOT_PASSWORD }}
+#        port: ${{ secrets.PORT }}
+#        script: |
+#          cd ${{ env.REPO_NAME }}
+#          touch config.json
+#          echo ${{ secrets.BOT_TOKEN_TEST }} > config.json
+#          cat config.json
+#          echo $?
   create-systemctl-service:
-    needs: [clone,add-bot-token,install-requirements]
+    needs: [clone,install-requirements]
     runs-on: ubuntu-latest
     steps:
     - name: creating systemd service for ${{ env.REPO_NAME }} bot
