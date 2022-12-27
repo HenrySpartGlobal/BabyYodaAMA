@@ -6,6 +6,7 @@ on:
 env:
     REPO_NAME: ${{ github.event.repository.name }}
     REPO_OWNER: ${{ github.repository_owner }}
+    GIT_SSH_COMMAND: "ssh -i /root/.ssh/id_rsa2"
 jobs:
   pull-repo:
     name: pull latest repo
@@ -19,6 +20,7 @@ jobs:
         password: ${{ secrets.ROOT_PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
+          export GIT_SSH_COMMAND='ssh -i /root/.ssh/id_rsa2'
           cd ${{ env.REPO_NAME }}
           git pull
   restart-bot:
