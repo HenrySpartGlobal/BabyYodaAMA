@@ -87,7 +87,7 @@ jobs:
           sudo systemctl start ${{ env.REPO_NAME }}.service
   
   create-systemctl-restart:
-    needs: [clone,add-bot-token,install-requirements,create-systemctl-service]
+    needs: [clone,install-requirements,create-systemctl-service]
     runs-on: ubuntu-latest
     steps:
     - name: creating systemd restart service for ${{ env.REPO_NAME }} bot
